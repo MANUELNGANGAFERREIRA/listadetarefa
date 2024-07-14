@@ -84,6 +84,8 @@ main {
     gap: 20%;
     flex-direction: column;
     padding: 7%;
+    
+    padding-left: 5px;
     align-items: center;
 
 }
