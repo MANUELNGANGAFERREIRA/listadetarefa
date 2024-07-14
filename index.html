@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="./assets/icon/bootstrap-icons.css">
+    <link rel="stylesheet" href="./assets/css/stylehomepage.css">
+</head>
+
+<body>
+    <main>
+        <section id="card1">
+            <i class="bi bi-grid-1x2"></i>
+            <div id="imagem">
+                <i class="bi bi-brightness-high"></i>
+                <span>----</span>
+                <img src="./assets/images/gui.jpg" alt="">
+            </div>
+        </section>
+
+        <section id="card2">
+
+            <div id="divc1">
+                <div id="divc1-1">
+                    <span id="d">Invoices</span>
+                    <span id="dd">There are 7 total invoices</span>
+                </div>
+                <div id="divc1-2">
+                    <select name="" id="select" onchange="filtrar()">
+                        <option value="" disabled selected>Filter by Status</option>
+                        <option value="t">Todos</option>
+                        <option value="f">Feito</option>
+                        <option value="p">Pendente</option>
+                    </select>
+                    <button onclick="addnewwork()"><i class="bi bi-plus"></i> New Invoices</button>
+                </div>
+            </div>
+            <div id="dados">
+                <label for=""> Titulo</label>
+                <input type="text" id="txttitulo" placeholder="ex:lavar a roupa">
+                <label for=""> Descrição</label>
+                <textarea name="" id="txtdesc"></textarea>
+                <label for=""> Data Prevista de Conclusão</label>
+                <input type="datetime-local" name="" id="txtdata">
+                <div id="card-btn">
+
+                    <button onclick="save()">Guardar</button>
+                    <button onclick="fecharwork()">Cancelar</button>
+                </div>
+
+            </div><!-- 
+            <div class="msgs" id="msg1">
+                <a href="#" class="fechar">Fechar</a>
+                <div class="msgcontent">
+
+                    <div id="dadosedit">
+                        <label for=""> Titulo</label>
+                        <input type="text" id="txttitulo" placeholder="ex:lavar a roupa">
+                        <label for=""> Descrição</label>
+                        <textarea name="" id="txtdesc"></textarea>
+                        <label for=""> Data Prevista de Conclusão</label>
+                        <input type="datetime-local" name="" id="txtdata">
+                        <div id="card-btn">
+
+                            <button onclick="fecharworkedit()">Atualizar</button>
+
+                            <button onclick="eliminarwork()">Eliminar</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div> --><!-- <a href="#msg1">puxar</a>   -->
+            <ul class="tarefas">
+                <!-- <li>
+                    <span class="id">nganga18</span>
+                    <span class="data">Domingo 23 Abril 2006</span>
+                    <span class="titulo">Titulo</span>
+                    <span class="status"> <i class="bi bi-dot"> </i> <span class="txt"> Pendente</span> </span>
+                    <span class="btn-content"> Ver Conteúdo <i class="bi bi-chevron-right"></i></span>
+                </li> -->
+
+            </ul>
+
+        </section>
+    </main>
+    <script>
+        var bdtarefa = [];
+        var bdtarefaString = localStorage.getItem("bdtarefa");
+        if (bdtarefaString) {
+            bdtarefa = JSON.parse(bdtarefaString);
+        }
+        /////////////////////
+        function GuardarTarefa(ident, title, descr, datat) {
+
+            var tarefa = {
+                id: ident,
+                titulo: title,
+                desc: descr,
+                data: datat,
+                status: false
+            };
+            bdtarefa.push(tarefa);
+            localStorage.setItem("bdtarefa", JSON.stringify(bdtarefa))
+        }
+
+        function mostrarTarefas() {
+            var lista = document.getElementsByClassName("tarefas")[0];
+            lista.innerHTML = ""
+
+            bdtarefa.forEach((tarefa, index) => {
+                var estado = "Pendente"
+                var corfundo = ""
+                if (tarefa.status == true) {
+                    estado = "Terminado"
+                    corfundo = "fundoverde"
+
+                }
+                var li = document.createElement("li");
+                li.innerHTML = `
+                 <span class="titulo dd">${tarefa.titulo}</span>
+                   
+                    <span class="data dd">${tarefa.data}</span>
+                    <span class="id dd">${tarefa.id}</span>
+                    
+                    <span class=" ${corfundo} status dd" onclick="marcado(${tarefa.id})"> <i class="bi bi-dot"> </i> <span class="txt"> ${estado} </span> </span>
+                  
+                    <i class="bi bi-backspace dd" onclick="eliminarwork(${tarefa.id})"></i>
+                    <a href="#msg${tarefa.id}" class="dd"> 
+                        <span class="btn-content"> 
+                            <i class="bi bi-chevron-right"></i></span>
+                    
+                    </a>
+                    
+            <div class="msgs" id="msg${tarefa.id}">
+                <a href="#" class="fechar">Fechar</a>
+                <div class="msgcontent">
+                  <div id="dadosedit">
+                        <label for=""> Titulo</label>
+                        <input type="text" id="txttitulo" class="titulo${tarefa.id}" value="${tarefa.titulo}">
+                        <label for=""> Descrição</label>
+                        <textarea name="" id="txtdesc" class="desc${tarefa.id}" > ${tarefa.desc}</textarea>
+                        <label for=""> Data Prevista de Conclusão</label>
+                        <input type="datetime-local" name="" id="txtdata" class="data${tarefa.id}" value="${tarefa.data}">
+
+                        <div id="card-btn">
+
+                            <button onclick="workedit(${tarefa.id})">Atualizar</button>
+
+                            <button onclick="eliminarwork(${tarefa.id})">Eliminar</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+               
+                    `;
+                lista.append(li);
+            });
+        }
+        function save() {
+
+            var titulo = document.getElementById("txttitulo").value
+            var desc = document.getElementById("txtdesc").value
+            var data = document.getElementById("txtdata").value
+
+            GuardarTarefa(Math.floor(Math.random() * 1e15), titulo, desc, data);
+            mostrarTarefas();
+            addnewwork()
+
+        }
+        window.addEventListener("load", mostrarTarefas())
+
+    </script>
+    <script>
+        function filtrar() {
+            const select = document.getElementById("select")
+            const value = select.options[select.selectedIndex].value
+            if (value == "f") {
+                var lista = document.getElementsByClassName("tarefas")[0];
+                lista.innerHTML = ""
+
+                bdtarefa.forEach((tarefa, index) => {
+                    if (tarefa.status == true) {
+
+                        var estado = "Pendente"
+                        var corfundo = ""
+                        if (tarefa.status == true) {
+                            estado = "Terminado"
+                            corfundo = "fundoverde"
+
+                        }
+                        var li = document.createElement("li");
+                        li.innerHTML = `
+                 <span class="titulo dd">${tarefa.titulo}</span>
+                   
+                    <span class="data dd">${tarefa.data}</span>
+                    <span class="id dd">${tarefa.id}</span>
+                    
+                    <span class=" ${corfundo} status dd" onclick="marcado(${tarefa.id})"> <i class="bi bi-dot"> </i> <span class="txt"> ${estado} </span> </span>
+                  
+                    <i class="bi bi-backspace dd" onclick="eliminarwork(${tarefa.id})"></i>
+                    <a href="#msg${tarefa.id}" class="dd"> 
+                        <span class="btn-content"> 
+                            <i class="bi bi-chevron-right"></i></span>
+                    
+                    </a>
+                    
+            <div class="msgs" id="msg${tarefa.id}">
+                <a href="#" class="fechar">Fechar</a>
+                <div class="msgcontent">
+                  <div id="dadosedit">
+                        <label for=""> Titulo</label>
+                        <input type="text" id="txttitulo" class="titulo${tarefa.id}" value="${tarefa.titulo}">
+                        <label for=""> Descrição</label>
+                        <textarea name="" id="txtdesc" class="desc${tarefa.id}" > ${tarefa.desc}</textarea>
+                        <label for=""> Data Prevista de Conclusão</label>
+                        <input type="datetime-local" name="" id="txtdata" class="data${tarefa.id}" value="${tarefa.data}">
+
+                        <div id="card-btn">
+
+                            <button onclick="workedit(${tarefa.id})">Atualizar</button>
+
+                            <button onclick="eliminarwork(${tarefa.id})">Eliminar</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+               
+                    `;
+                        lista.append(li);
+
+
+
+                    }
+
+                });
+
+            }
+            else if (value == "p") {
+                var lista = document.getElementsByClassName("tarefas")[0];
+                lista.innerHTML = ""
+
+                bdtarefa.forEach((tarefa, index) => {
+                    if (tarefa.status == false) {
+
+                        var estado = "Pendente"
+                        var corfundo = ""
+                        if (tarefa.status == true) {
+                            estado = "Terminado"
+                            corfundo = "fundoverde"
+
+                        }
+                        var li = document.createElement("li");
+                        li.innerHTML = `
+                 <span class="titulo dd">${tarefa.titulo}</span>
+                   
+                    <span class="data dd">${tarefa.data}</span>
+                    <span class="id dd">${tarefa.id}</span>
+                    
+                    <span class=" ${corfundo} status dd" onclick="marcado(${tarefa.id})"> <i class="bi bi-dot"> </i> <span class="txt"> ${estado} </span> </span>
+                  
+                    <i class="bi bi-backspace dd" onclick="eliminarwork(${tarefa.id})"></i>
+                    <a href="#msg${tarefa.id}" class="dd"> 
+                        <span class="btn-content"> 
+                            <i class="bi bi-chevron-right"></i></span>
+                    
+                    </a>
+                    
+            <div class="msgs" id="msg${tarefa.id}">
+                <a href="#" class="fechar">Fechar</a>
+                <div class="msgcontent">
+                  <div id="dadosedit">
+                        <label for=""> Titulo</label>
+                        <input type="text" id="txttitulo" class="titulo${tarefa.id}" value="${tarefa.titulo}">
+                        <label for=""> Descrição</label>
+                        <textarea name="" id="txtdesc" class="desc${tarefa.id}" > ${tarefa.desc}</textarea>
+                        <label for=""> Data Prevista de Conclusão</label>
+                        <input type="datetime-local" name="" id="txtdata" class="data${tarefa.id}" value="${tarefa.data}">
+
+                        <div id="card-btn">
+
+                            <button onclick="workedit(${tarefa.id})">Atualizar</button>
+
+                            <button onclick="eliminarwork(${tarefa.id})">Eliminar</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+               
+                    `;
+                        lista.append(li);
+
+
+
+                    }
+
+                });
+            }
+            else if (value == "t") {
+                var lista = document.getElementsByClassName("tarefas")[0];
+            lista.innerHTML = ""
+
+            bdtarefa.forEach((tarefa, index) => {
+                var estado = "Pendente"
+                var corfundo = ""
+                if (tarefa.status == true) {
+                    estado = "Terminado"
+                    corfundo = "fundoverde"
+
+                }
+                var li = document.createElement("li");
+                li.innerHTML = `
+                 <span class="titulo dd">${tarefa.titulo}</span>
+                   
+                    <span class="data dd">${tarefa.data}</span>
+                    <span class="id dd">${tarefa.id}</span>
+                    
+                    <span class=" ${corfundo} status dd" onclick="marcado(${tarefa.id})"> <i class="bi bi-dot"> </i> <span class="txt"> ${estado} </span> </span>
+                  
+                    <i class="bi bi-backspace dd" onclick="eliminarwork(${tarefa.id})"></i>
+                    <a href="#msg${tarefa.id}" class="dd"> 
+                        <span class="btn-content"> 
+                            <i class="bi bi-chevron-right"></i></span>
+                    
+                    </a>
+                    
+            <div class="msgs" id="msg${tarefa.id}">
+                <a href="#" class="fechar">Fechar</a>
+                <div class="msgcontent">
+                  <div id="dadosedit">
+                        <label for=""> Titulo</label>
+                        <input type="text" id="txttitulo" class="titulo${tarefa.id}" value="${tarefa.titulo}">
+                        <label for=""> Descrição</label>
+                        <textarea name="" id="txtdesc" class="desc${tarefa.id}" > ${tarefa.desc}</textarea>
+                        <label for=""> Data Prevista de Conclusão</label>
+                        <input type="datetime-local" name="" id="txtdata" class="data${tarefa.id}" value="${tarefa.data}">
+
+                        <div id="card-btn">
+
+                            <button onclick="workedit(${tarefa.id})">Atualizar</button>
+
+                            <button onclick="eliminarwork(${tarefa.id})">Eliminar</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+               
+                    `;
+                lista.append(li);
+            });
+        
+
+            }
+        }
+        function addnewwork() {
+            if (document.getElementById("dados").style.visibility == "hidden") {
+                document.getElementById("dados").style.visibility = "visible"
+                document.getElementById("dados").style.opacity = "1"
+
+
+            } else {
+                document.getElementById("dados").style.visibility = "hidden"
+
+                document.getElementById("txttitulo").value = ''
+                document.getElementById("txtdesc").value = ''
+                document.getElementById("txtdata").value = ''
+
+            }
+
+        }
+        function fecharwork() {
+            document.getElementById("dados").style.visibility = "hidden"
+
+
+        }
+
+
+
+    </script>
+
+    <script>
+        function eliminarwork(id) {
+            bdtarefa = bdtarefa.filter((tarefa) => {
+
+                return (tarefa.id != id)
+
+            }
+
+            )
+
+            document.getElementById(`msg${id}`).style.visibility = "hidden"
+            localStorage.setItem("bdtarefa", JSON.stringify(bdtarefa))
+            mostrarTarefas()
+
+        }
+        function workedit(id) {
+            bdtarefa.forEach(element => {
+                if (element.id == id) {
+                    element.titulo = document.getElementsByClassName(`titulo${id}`)[0].value
+                    element.desc = document.getElementsByClassName(`desc${id}`)[0].value
+                    element.data = document.getElementsByClassName(`data${id}`)[0].value
+
+                }
+            });
+
+            document.getElementById(`msg${id}`).style.visibility = "hidden"
+            localStorage.setItem("bdtarefa", JSON.stringify(bdtarefa))
+            mostrarTarefas()
+        }
+
+        function marcado(id) {
+
+            bdtarefa.forEach(element => {
+                if (element.id == id) {
+                    element.status = true
+                }
+
+
+            })
+
+            localStorage.setItem("bdtarefa", JSON.stringify(bdtarefa))
+            mostrarTarefas()
+        }
+
+
+    </script>
+</body>
+
+</html>

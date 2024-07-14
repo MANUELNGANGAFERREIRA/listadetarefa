@@ -1,0 +1,496 @@
+:root {
+
+    --first-color: #8265f7;
+    --second-color: #1f213a;
+    --text-color: #fff;
+    --body-color: #161521;
+
+
+    --body-font: arial;
+    --biggest-font-size: 4.5rem;
+    --h1-font-size: 2rem;
+    --h2-font-size: 1.5rem;
+    --h3-font-size: 1.25rem;
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+    --smaller-font-size: .813rem;
+    --timy-font-size: .625rem;
+
+    --font-minium: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+
+    --border-radius: 15px;
+    --box-shadow: ;
+
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+}
+
+body {
+    background-color: var(--body-color);
+    color: var(--text-color);
+}
+
+input,
+button {
+    border: none;
+    outline: none;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+
+    font-family: 'poppins';
+}
+
+main {
+    background-color: red;
+    height: 100vh;
+    display: flex;
+
+}
+
+#card1 {
+    background-color: var(--second-color);
+    width: 80px;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 14px;
+    align-items: center;
+}
+
+#card2 {
+    background-color: #161521;
+    width: 100%;
+    display: flex;
+    gap: 20%;
+    flex-direction: column;
+    padding: 7%;
+    align-items: center;
+
+}
+
+#imagem {
+    display: flex;
+    flex-direction: column;
+    width: 50px;
+    align-items: center;
+    letter-spacing: 2px;
+    font-weight: 600;
+
+    img {
+        width: 100%;
+        border-radius: 50%;
+    }
+}
+
+#divc1 {
+    background-color: #161521;
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
+}
+
+#divc1-1 {
+    display: flex;
+    flex-direction: column;
+
+}
+
+#d {
+    font-size: 22px;
+}
+
+#dd {
+    font-weight: 400;
+    font-size: 14px;
+    color: gainsboro;
+}
+
+#divc1-2 {
+
+    display: flex;
+    gap: 20px;
+
+    button {
+        background-color: #8265f7;
+        padding: 10px;
+        color: #fff;
+        border-radius: var(--border-radius);
+    }
+
+}
+
+select {
+    background-color: #161521;
+    border: none;
+    outline: none;
+    color: #fff;
+}
+
+.tarefas {
+    width: 100%;
+    height: 60%;
+    background-color: #1f213a;
+    padding: 35px 0px;
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+
+    .btn-content {
+        cursor: pointer;
+    }
+
+    li {
+
+        border: 6px solid gainsboro;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        padding: 4px;
+
+
+    }
+
+    /*  
+    li {
+        border: 6px solid gainsboro;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        padding: 4px;
+        display: flex;
+        flex-direction: column;
+        background-color: rebeccapurple;
+        span{            
+
+        }
+    } 
+    .dd{
+        color: red;
+        background-color: green;
+        width: 1000px;
+        display: flex;
+        justify-content: center;
+    } */
+
+    .titulo {
+        font-weight: 550;
+        text-transform: capitalize;
+        font-size: 1.2rem;
+        color: #8265f7;
+        text-shadow: 0px 5px 5px #544494 ;
+    }
+
+    .data {
+        color: gainsboro;
+        font-size: 16px;
+    }
+
+    .id,
+    .btn-content {
+        font-size: medium;
+        font-weight: 600;
+    }
+}
+
+.tarefas li {
+    display: flex;
+    justify-content: center;
+    gap: 7%;
+
+    span {
+        font-size: larger;
+        overflow-x: auto;
+        width: 12%;
+
+    }
+
+
+}
+
+a {
+    text-decoration: none;
+    color: #8265f7;
+}
+
+#dados {
+    position: absolute;
+    transform: translateY(7%);
+    visibility: hidden;
+    /* width: 30%;
+    height: 70%; */
+
+    width: 400px;
+    height: 70%;
+    opacity: .1;
+    transition: 1s;
+    background-color: #1f213a;
+    padding: 35px 0px;
+    border-radius: var(--border-radius);
+    box-shadow: 0px 0px 16px #1f213a, 0px 0px 16px #8265f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    input {
+        width: 80%;
+        height: 35px;
+        padding: 12px;
+        background-color: #1f213a;
+        color: gainsboro;
+        border: 4px solid #8265f7;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        outline: none;
+
+    }
+
+    input::placeholder {
+        color: gray;
+        font-weight: 300;
+    }
+
+    input::selection,
+    textarea::selection {
+        background-color: #8265f7;
+        color: #fff;
+    }
+
+    textarea {
+        border-radius: 8px;
+        resize: none;
+        height: 50%;
+        padding: 12px;
+        width: 80%;
+        outline: none;
+
+    }
+
+    label {
+        font-size: large;
+        font-weight: 600;
+    }
+
+    #card-btn {
+        width: 70%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    button {
+        border-radius: 8px;
+        font-weight: 600;
+        color: #fff;
+        background-color: #8265f7;
+        height: 55px;
+        width: 48%;
+    }
+}
+
+input[type="radio"] {
+    accent-color: aqua;
+}
+
+.msgs {
+    display: flex;
+    justify-content: center;
+    transition: 1s;
+    position: fixed;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+
+}
+
+.msgs:target {
+    top: 0;
+}
+
+.msgcontent {
+    text-align: center;
+
+}
+
+.fechar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    color: white;
+}
+
+
+
+#dadosedit {
+    width: 400px;
+    height: 70%;
+    transform: translateY(20%);
+    transition: 1s;
+    background-color: #1f213a;
+    padding: 35px 0px;
+    border-radius: var(--border-radius);
+    box-shadow: 0px 0px 16px #1f213a, 0px 0px 16px #8265f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    input {
+        width: 80%;
+        height: 35px;
+        padding: 12px;
+        background-color: #1f213a;
+        color: gainsboro;
+        border: 4px solid #8265f7;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        outline: none;
+
+    }
+
+    input::placeholder {
+        color: gray;
+        font-weight: 300;
+    }
+
+    input::selection,
+    textarea::selection {
+        background-color: #8265f7;
+        color: #fff;
+    }
+
+    textarea {
+        border-radius: 8px;
+        resize: none;
+        height: 50%;
+        padding: 12px;
+        width: 80%;
+        outline: none;
+
+    }
+
+    label {
+        font-size: large;
+        font-weight: 600;
+    }
+
+    #card-btn {
+        width: 70%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    button {
+        border-radius: 8px;
+        font-weight: 600;
+        color: #fff;
+        background-color: #8265f7;
+        height: 55px;
+        width: 48%;
+    }
+}
+
+.status {
+    background-color: rgb(246, 99, 14, .6);
+    border-radius: 8px;
+    padding-top: 6px;
+    text-align: center;
+    cursor: pointer;
+
+    i {
+        color: rgba(255, 157, 52, 0.9);
+    }
+
+    .txt {
+        color: rgba(255, 157, 52, 0.9);
+        font-weight: 300;
+        font-size: 17px;
+    }
+}
+
+.fundoverde {
+    background-color: rgb(0, 128, 0, .7);
+    border-radius: 8px;
+    padding-top: 6px;
+    text-align: center;
+    cursor: not-allowed;
+
+    i {
+        color: rgb(139, 222, 16, .9);
+
+    }
+
+    .txt {
+
+        color: rgb(139, 222, 16, .9);
+        font-weight: 300;
+        font-size: 17px;
+    }
+
+}
+
+.bi-backspace {
+    color: red;
+    cursor: pointer;
+}
+
+@media (max-width: 1080px) {
+    li {
+        border: 6px solid gainsboro;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        padding: 4px;
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    .tarefas li {
+        display: flex;
+        gap: 7%;
+        align-items: center;
+
+        span {
+            font-size: larger;
+            overflow-x: auto;
+            width: 90%;
+            text-align: center;
+            margin: 5px;
+
+
+        }
+    }
+}
+
+/* 
+color: rgb(139, 222, 16,.9);
+background-color: rgb(0, 128, 0,.7);
+
+
+rgb(246, 99, 14,.6)
+*/
