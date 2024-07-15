@@ -466,6 +466,16 @@ input[type="radio"] {
 }
 
 @media (max-width: 1080px) {
+    #imagem{
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+        position: relative;
+        right: 30px;
+        span{
+            display: none;
+        }
+    }
     #dados, #dadosedit{
         width: 300px;
     }
