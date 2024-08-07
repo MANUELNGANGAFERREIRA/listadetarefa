@@ -74,18 +74,23 @@
                     if (user.email != email && user.password != password) {
 
                         user.status = false
+                    }else{
+                        
+                user.status = true
                     }
 
                 })
                 user.status = true
+                
+            localStorage.setItem("bduser", JSON.stringify(bduser))
 
 
             } else {
                 alert("nao existe")
             }
 
-            document.getElementById("signupemail").value = ""
-            document.getElementById("signuppassword").value = ""
+            document.getElementById("loginemail").value = ""
+            document.getElementById("loginpassword").value = ""
         }
 
 

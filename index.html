@@ -92,11 +92,29 @@
         </section>
     </main>
     <script>
+     var bduser = []
+     
+     var bdtarefa = [];
+     var i = 0
+        var lastbduser = localStorage.getItem("bduser");
+        if (lastbduser) {
+            bduser = JSON.parse(lastbduser);
+        }
+
+bduser.forEach((user,index) => {
+    if(user.status){
+        bdtarefa = user.tarefas
+        i = index
+    }
+
+
+})
+/* 
         var bdtarefa = [];
         var bdtarefaString = localStorage.getItem("bdtarefa");
         if (bdtarefaString) {
             bdtarefa = JSON.parse(bdtarefaString);
-        }
+        } */
         /////////////////////
         function GuardarTarefa(ident, title, descr, datat) {
 
@@ -108,7 +126,10 @@
                 status: false
             };
             bdtarefa.push(tarefa);
-            localStorage.setItem("bdtarefa", JSON.stringify(bdtarefa))
+            bduser[i].tarefas = bdtarefa
+            localStorage.setItem("bduser", JSON.stringify(bduser))
+
+        
         }
 
         function mostrarTarefas() {
@@ -166,6 +187,7 @@
                     `;
                 lista.append(li);
             });
+
         }
         function save() {
 
@@ -408,7 +430,9 @@
             )
 
             document.getElementById(`msg${id}`).style.visibility = "hidden"
-            localStorage.setItem("bdtarefa", JSON.stringify(bdtarefa))
+           bduser[i].tarefas = bdtarefa
+            localStorage.setItem("bduser", JSON.stringify(bduser))
+
             mostrarTarefas()
 
         }
@@ -423,8 +447,9 @@
             });
 
             document.getElementById(`msg${id}`).style.visibility = "hidden"
-            localStorage.setItem("bdtarefa", JSON.stringify(bdtarefa))
-            mostrarTarefas()
+            bduser[i].tarefas = bdtarefa
+            localStorage.setItem("bduser", JSON.stringify(bduser))
+  mostrarTarefas()
         }
 
         function marcado(id) {
@@ -436,8 +461,10 @@
 
 
             })
+            bduser[i].tarefas = bdtarefa
+            localStorage.setItem("bduser", JSON.stringify(bduser))
 
-            localStorage.setItem("bdtarefa", JSON.stringify(bdtarefa))
+            
             mostrarTarefas()
         }
 
