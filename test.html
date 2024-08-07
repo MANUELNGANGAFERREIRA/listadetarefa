@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1> signup</h1>
+    <input type="text" id="signupemail" placeholder="email">
+    <input type="text" id="signuppassword" placeholder="password">
+    <button onclick="signup()">signup</button>
+    <h1>login</h1>
+
+    <input type="text" id="loginemail" placeholder="email">
+    <input type="text" id="loginpassword" placeholder="password">
+    <button onclick="login()">login</button>
+
+    <h1>tarefas</h1>
+
+    <div id="tarefas">
+
+    </div>
+    <script>
+
+        var bduser = []
+        var lastbduser = localStorage.getItem("bduser");
+        if (lastbduser) {
+            bduser = JSON.parse(lastbduser);
+        }
+        function createuser(email, password) {
+
+            var user = {
+                email,
+                password,
+                status: false,
+                tarefas: []
+            }
+            bduser.push(user)
+            localStorage.setItem("bduser", JSON.stringify(bduser))
+
+        }
+        function signup() {
+            var email = document.getElementById("signupemail").value.trim()
+            var password = document.getElementById("signuppassword").value.trim()
+            let isnewuser = false
+            bduser.forEach(user => {
+                if (user.email == email && user.password == password) {
+                    alert("user already exists")
+                    isnewuser = true
+                }
+            })
+            if (!isnewuser) {
+                alert("o usuario e novo")
+                createuser(email, password)
+                isnewuser = false
+            }
+            document.getElementById("signupemail").value = ""
+            document.getElementById("signuppassword").value = ""
+            console.log(bduser)
+
+
+        }
+        function login() {
+
+            var email = document.getElementById("loginemail").value.trim()
+
+            var password = document.getElementById("loginpassword").value.trim()
+            var user = bduser.find(user => user.email == email && user.password == password)
+            if (user) {
+                bduser.forEach(user => {
+                    if (user.email != email && user.password != password) {
+
+                        user.status = false
+                    }
+
+                })
+                user.status = true
+
+
+            } else {
+                alert("nao existe")
+            }
+
+            document.getElementById("signupemail").value = ""
+            document.getElementById("signuppassword").value = ""
+        }
+
+
+
+
+        /* 
+        function grd(){
+                var tarefa = document.getElementById("tarefa").value
+                user.tarefas.push(tarefa)
+        
+        
+        } */
+
+
+
+    </script>
+</body>
+
+</html>
